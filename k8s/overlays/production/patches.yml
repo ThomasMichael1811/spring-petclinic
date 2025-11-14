@@ -9,7 +9,4 @@ spec:
       containers:
         - name: petclinic
           image: dsyer/petclinic 
-          resources:
-            limits:
-              memory: 256Mi
-              cpu: 250m
+

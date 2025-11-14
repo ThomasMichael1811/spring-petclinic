@@ -8,7 +8,4 @@ spec:
     spec:
       containers:
         - name: petclinic
-          resources:
-            limits:
-              memory: 256Mi
-              cpu: 250m
+

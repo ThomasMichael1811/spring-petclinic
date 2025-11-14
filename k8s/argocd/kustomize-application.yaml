@@ -1,0 +1,71 @@
+---
+# Dev Stage
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: petclinic-dev
+  namespace: argocd
+spec:
+  destination:
+    namespace: petclinic-dev
+    server: https://kubernetes.default.svc
+  project: argocd
+  source:
+    path: k8s/overlays/dev
+    repoURL: https://github.com/ThomasMichael1811/spring-petclinic
+    targetRevision: kustomize
+  syncPolicy:
+    automated:
+      enabled: true
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+
+---
+# Staging Stage
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: petclinic-staging
+  namespace: argocd
+spec:
+  destination:
+    namespace: petclinic-staging
+    server: https://kubernetes.default.svc
+  project: argocd
+  source:
+    path: k8s/overlays/staging
+    repoURL: https://github.com/ThomasMichael1811/spring-petclinic
+    targetRevision: kustomize
+  syncPolicy:
+    automated:
+      enabled: true
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+
+---
+# Production Stage
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: petclinic-production
+  namespace: argocd
+spec:
+  destination:
+    namespace: petclinic-production
+    server: https://kubernetes.default.svc
+  project: argocd
+  source:
+    path: k8s/overlays/production
+    repoURL: https://github.com/ThomasMichael1811/spring-petclinic
+    targetRevision: kustomize
+  syncPolicy:
+    automated:
+      enabled: true
+      prune: false        # Production: Manuelles Prune
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
